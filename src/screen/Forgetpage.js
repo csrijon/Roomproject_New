@@ -14,7 +14,7 @@ const Forgetpage = ({ navigation }) => {
   const otochecker = async ()=>{
     try {
       setLoading(true)
-      let response = await fetch("http://10.140.22.17:3000/otpsender",{
+      let response = await fetch("http://192.168.29.19:3000/otpsender",{
         method: "POST",
         headers:{
           "Content-Type":"application/json"

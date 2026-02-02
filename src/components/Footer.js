@@ -1,4 +1,4 @@
-import React from "react";
+
 import { View, Text, Image, StyleSheet } from "react-native";
 
 const FooterBar = () => {
@@ -11,6 +11,7 @@ const FooterBar = () => {
           style={styles.logo}
           resizeMode="contain"
         />
+        
         <Text style={styles.appName}>RoomAI Designer</Text>
       </View>
 

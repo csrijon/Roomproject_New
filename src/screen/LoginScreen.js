@@ -63,29 +63,29 @@ const LoginScreen = ({ navigation }) => {
   // };
 
   const loggedin = async () => {
-    try {
-      const response = await fetch("http://10.140.20.65:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          usermail: logemail,
-          loginpass: logpassword
-        })
-      })
-      const data = await response.json()
-      console.log(data)
-      if (!response.ok) {
-        console.log("login failed")
-        setlogcolor(true)
-        setlogerror(true)
-        return
-      }
+    // try {
+    //   const response = await fetch("http://192.168.29.19:3000/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       usermail: logemail,
+    //       loginpass: logpassword
+    //     })
+    //   })
+    //   const data = await response.json()
+    //   console.log(data)
+    //   if (!response.ok) {
+    //     console.log("login failed")
+    //     setlogcolor(true)
+    //     setlogerror(true)
+    //     return
+      // }
       navigation.replace("DrawerScreen")
-    } catch (error) {
-      console.log(error)
-    }
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   return (
