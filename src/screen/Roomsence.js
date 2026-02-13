@@ -10,8 +10,7 @@ const previewImages = [
   { id: 3, img: require("../images/3rd3.jpg") },
 ];
 
-const Roomsence = ({ navigation }
-) => {
+const Roomsence = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.containers}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -53,7 +52,6 @@ export default Roomsence
 const styles = StyleSheet.create({
   containers: {
     flex: 1,
-    // paddingTop: 60,
     alignItems: "center",
     backgroundColor: "#ffffff",
   },

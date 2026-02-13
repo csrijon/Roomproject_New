@@ -24,7 +24,7 @@ android {
         versionName "1.0"
     }
 
-    // 🔐 SIGNING CONFIG (DEBUG + RELEASE)
+  
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -41,7 +41,7 @@ android {
         }
     }
 
-    // 🏗️ BUILD TYPES
+    
     buildTypes {
         debug {
             signingConfig signingConfigs.debug

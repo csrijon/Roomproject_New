@@ -1,8 +1,14 @@
-import { FlatList, View, Text, StyleSheet } from "react-native";
-import Header from "../components/Header.js";
+import React from "react";
+import {
+  FlatList,
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../components/Header.js";
 import PlanCard from "../components/PlanCard.js";
-import { ScrollView, StatusBar } from "react-native";
 
 const plans = [
   {
@@ -44,32 +50,48 @@ const Subscrption = () => {
   return (
     <SafeAreaView style={styles.Subcontainer}>
       <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
-      <ScrollView vertical showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
-        <Header />
 
-        <View style={styles.topsection}>
-          <Text style={styles.firsttext}>Find Your Perfect Plan</Text>
-          <Text style={styles.secondtext}>Unlock Powerful AI Design Tools</Text>
-        </View>
+      <FlatList
+        data={[{ key: "content" }]}   // dummy single item
+        renderItem={() => (
+          <>
+            <Header />
 
-        <View style={styles.cardContainer}>
-          <FlatList
-            horizontal
-            data={plans}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => <PlanCard item={item} />}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 15 }}
-          />
-        </View>
+            <View style={styles.topsection}>
+              <Text style={styles.firsttext}>
+                Find Your Perfect Plan
+              </Text>
+              <Text style={styles.secondtext}>
+                Unlock Powerful AI Design Tools
+              </Text>
+            </View>
 
-        <View style={styles.subcard}>
-          <Text style={styles.boldsubtext}>FAQ</Text>
-          <Text style={styles.faqText}>
-            hello i am srijon chowdhury, I am from Ghatal Paschim Medinipur
-          </Text>
-        </View>
-      </ScrollView>
+            <View style={styles.cardContainer}>
+              <FlatList
+                horizontal
+                data={plans}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                  <PlanCard item={item} />
+                )}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+              />
+            </View>
+
+            <View style={styles.subcard}>
+              <Text style={styles.boldsubtext}>FAQ</Text>
+              <Text style={styles.faqText}>
+                What happens after upgrading?{"\n\n"}
+                You instantly unlock advanced AI tools, unlimited designs,
+                export features and priority support.
+              </Text>
+            </View>
+          </>
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 40 }}
+      />
     </SafeAreaView>
   );
 };
@@ -79,7 +101,7 @@ export default Subscrption;
 const styles = StyleSheet.create({
   Subcontainer: {
     flex: 1,
-    backgroundColor: "#edeaeaff",
+    backgroundColor: "#f5f6fa",
   },
 
   topsection: {

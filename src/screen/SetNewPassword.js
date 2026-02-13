@@ -20,6 +20,35 @@ const SetNewPassword = ({ navigation }) => {
     }
 
 
+    const updatepassword = async () => {
+        if (!password.trim() || !confirmPassword.trim()) {
+            console.log("password can not empty")
+        }
+        if (password.length < 6) {
+            console.log("you can write 6 letter")
+        }
+        if (password !== confirmPassword) {
+            console.log("password not match")
+        }
+
+        let response = await fetch("http://10.140.21.238:3000/updatepass",{
+            method: "PATCH",
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+               passowrds:password
+            })
+        })
+
+        let data = await response.json();
+        console.log(data)
+
+        return response.ok ? navigation.replace("LoginScreen") : console.log("password update failed")
+
+    }
+
+
     return (
         <SafeAreaView style={styles.container}>
 
@@ -47,6 +76,7 @@ const SetNewPassword = ({ navigation }) => {
                     placeholder="Enter your new password"
                     placeholderTextColor="#B3B3B3"
                     maxLength={8}
+                    value={password}
                     secureTextEntry={secureTextEntry}
                     onChangeText={(value) => {
                         setPassword(value)
@@ -68,8 +98,9 @@ const SetNewPassword = ({ navigation }) => {
                     placeholder="Re-enter password"
                     placeholderTextColor="#B3B3B3"
                     maxLength={8}
+                    value={confirmPassword}
                     secureTextEntry={secureTextEntry}
-                    onChangeText={(value) => { setConfirmPassword(value) }}
+                    onChangeText={(value) => { setConfirmPassword(value), console.log("confirm password value:", value); }}
                 />
                 <TouchableOpacity onPress={handelscureTextEntryhandler} >
                     <MaterialIcons
@@ -87,6 +118,7 @@ const SetNewPassword = ({ navigation }) => {
                         ? { backgroundColor: "#648DDB" }
                         : { backgroundColor: "#C9D9F8" }
                 ]}
+                onPress={updatepassword}
             >
                 <Text style={styles.updateText}>Update Password</Text>
             </TouchableOpacity>

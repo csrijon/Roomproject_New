@@ -40,7 +40,15 @@ const DrawerScreen = () => {
 }
 const TabsScreen = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator screenOptions={{
+      headerShown: false, tabBarStyle: {
+        height: 70,
+        borderRadius: 15,
+      },
+      tabBarItemStyle: {
+        paddingVertical: 8
+      }
+    }}>
 
       <Tab.Screen
         name="RoomTab"
@@ -61,8 +69,7 @@ const TabsScreen = () => {
           ),
         }}
       />
-        <Tab.Screen
-
+      <Tab.Screen
         options={{
           tabBarIcon: ({ size }) => (
             <View style={styles.tabbariconbackground} >
@@ -71,11 +78,11 @@ const TabsScreen = () => {
           ),
           tabBarLabel: "",
           tabBarActiveTintColor: "#ffffff",
-          tabBarInactiveTintColor: "#ffffff",
+          // tabBarInactiveTintColor: "#ffffff",
+          paddingBottom: 10,
 
         }}
         name="ProTab" component={Subscrption} >
-
       </Tab.Screen>
 
       <Tab.Screen
@@ -117,7 +124,7 @@ const Stacksscreen = () => {
       <Stack.Screen name="Tellmeus" component={Tellmeus} />
       <Stack.Screen name="ReviewPage" component={ReviewPage} />
       <Stack.Screen name="ScanerLoadingmainpage" component={ScanerLoadingmainpage} />
-      <Stack.Screen name="ScanCamera" component={ScanCamera}/>
+      <Stack.Screen name="ScanCamera" component={ScanCamera} />
     </Stack.Navigator>
   );
 };
@@ -126,7 +133,7 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stacksscreen/>
+        <Stacksscreen />
       </NavigationContainer>
     </SafeAreaProvider>
   );

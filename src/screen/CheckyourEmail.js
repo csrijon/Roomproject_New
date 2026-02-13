@@ -10,52 +10,58 @@ import {
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
-const CheckyourEmail = ({ navigation,route }) => {
+const CheckyourEmail = ({ navigation, route }) => {
 
-    // const {usermail} = route.params;
-    
+   const usermail = route?.params?.usermail || "";
 
     const [code, setCode] = useState(["", "", "", "", ""]);
+    const [otpError, setOtpError] = useState(false); 
 
     const otphandeler = (index, value) => {
-        let fullcode = [...code]
-        fullcode[index] = value
-        setCode(fullcode)
-        console.log(fullcode);
-    }
+        let fullcode = [...code];
+        fullcode[index] = value;
+        setCode(fullcode);
+        setOtpError(false); 
+    };
 
     const buttonhandeler = () => {
         return code.every((item) => item !== "");
     };
 
-    // const sendotpverification =async()=>{
-    //      try {
-    //         let response= await fetch("http://10.140.22.17:3000/otpchecker",{
-    //             method:"POST",
-    //             headers:{
-    //                 "Content-Type":"application/json"
-    //             },
-    //             body:JSON.stringify({
-    //                 usermail: usermail,
-    //                 otp:code.join("")
-    //             })
-    //         })
-    //         let data = await response.json();
-    //         console.log(data)
-    //         if(!response.ok){
-    //             return
-    //         }
-    //         navigation.navigate("PasswordReset")
+    const sendotpverification = async () => {
+        try {
+            let response = await fetch("http://10.140.21.238:3000/otpchecker", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    usermail: usermail,
+                    otp: code.join("")
+                })
+            });
 
-    //      } catch (error) {
-    //         console.log("error", error)
-    //      }
-    // }
+            let data = await response.json();
+            console.log(data);
+
+            if (!response.ok) {
+                setOtpError(true); // ✅ Show error
+                return;
+            }
+
+            setOtpError(false); // ✅ Clear error
+            navigation.navigate("PasswordReset");
+
+        } catch (error) {
+            console.log("error", error);
+            setOtpError(true); // Optional: show error if network fails
+        }
+    };
 
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content" />
-            {/* Back Button */}
+
             <TouchableOpacity
                 style={styles.backButton}
                 onPress={() => (navigation.goBack())}
@@ -63,20 +69,16 @@ const CheckyourEmail = ({ navigation,route }) => {
                 <MaterialIcons name="chevron-left" size={29} color="#000" />
             </TouchableOpacity>
 
-            {/* Title */}
             <Text style={styles.title}>Check your email</Text>
 
-            {/* Description */}
             <Text style={styles.description}>
-                {/* We sent an OTP <Text style={styles.bold}>{usermail}</Text> */}
+                We sent an OTP <Text style={styles.bold}>{usermail}</Text>
             </Text>
 
             <Text style={styles.subDescription}>
-                {/* enter 5 digit code that mentioned in the email */}
-                 is Mail.
+                enter 5 digit code that mentioned in the email
             </Text>
 
-            {/* 5 Code Boxes */}
             <View style={styles.codeRow}>
                 {code.map((item, index) => (
                     <TextInput
@@ -85,32 +87,48 @@ const CheckyourEmail = ({ navigation,route }) => {
                         keyboardType="numeric"
                         keyboardAppearance="light"
                         onChangeText={(value) => {
-                            otphandeler(index, value)
+                            otphandeler(index, value);
                         }}
-                        style={styles.codeBox} maxLength={1} />
+                        style={styles.codeBox}
+                        maxLength={1}
+                    />
                 ))}
             </View>
 
-            {/* Verify Button */}
             <TouchableOpacity
-                style={[styles.verifyBtn, buttonhandeler() ? { backgroundColor: "#648DDB" } : { backgroundColor: "#C9D9F8" }]}
-                onPress={()=>sendotpverification()}
-
+                style={[
+                    styles.verifyBtn,
+                    buttonhandeler()
+                        ? { backgroundColor: "#648DDB" }
+                        : { backgroundColor: "#C9D9F8" }
+                ]}
+                onPress={sendotpverification}
+                disabled={!buttonhandeler()}
             >
                 <Text style={styles.verifyText}>Verify Code</Text>
             </TouchableOpacity>
 
-            {/* Resend text */}
+            {/* ✅ Error Message Added */}
+            {otpError && (
+                <Text style={styles.errorText}>
+                    OTP is not valid
+                </Text>
+            )}
+
             <View style={styles.resendRow}>
-                <Text style={styles.resendNormal}>Haven’t got the email yet?</Text>
-                <Text style={styles.resendLink}> Resend email</Text>
+                <Text style={styles.resendNormal}>
+                    Haven’t got the email yet?
+                </Text>
+                <Text style={styles.resendLink}>
+                    {" "}Resend email
+                </Text>
             </View>
+
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default CheckyourEmail;
-
 
 const styles = StyleSheet.create({
     container: {
@@ -176,17 +194,23 @@ const styles = StyleSheet.create({
     },
 
     verifyBtn: {
-        backgroundColor: "#C9D9F8",
         paddingVertical: 15,
         borderRadius: 12,
         alignItems: "center",
-        marginBottom: 25,
+        marginBottom: 10,
     },
 
     verifyText: {
         color: "#FFFFFF",
         fontSize: 16,
-        fontWeight: "Bold",
+        fontWeight: "bold",
+    },
+
+    errorText: {
+        color: "red",
+        textAlign: "center",
+        marginBottom: 15,
+        fontSize: 14,
     },
 
     resendRow: {
@@ -197,12 +221,12 @@ const styles = StyleSheet.create({
     resendNormal: {
         fontSize: 16,
         color: "#9A9A9A",
-        fontWeight: "semibold"
+        fontWeight: "600"
     },
 
     resendLink: {
         fontSize: 16,
         color: "#3578E5",
-        fontWeight: "semibold",
+        fontWeight: "600",
     },
-})
+});

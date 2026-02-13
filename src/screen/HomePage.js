@@ -1,5 +1,5 @@
 // HomePage.js
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StatusBar,
   View,
@@ -10,10 +10,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "../components/Header.js"
-import { useEffect } from "react";
+import Header from "../components/Header.js";
 import LinearGradient from "react-native-linear-gradient";
-
 
 const previewImages = [
   {
@@ -53,7 +51,14 @@ const features = [
     icon: "👓",
   },
   {
-    id: 3,
+    id: 4,
+    title: "Visualize & Live It",
+    description:
+      "Step inside your design with 3D previews or share with friends.",
+    icon: "👓",
+  },
+   {
+    id: 5,
     title: "Visualize & Live It",
     description:
       "Step inside your design with 3D previews or share with friends.",
@@ -62,12 +67,12 @@ const features = [
 ];
 
 const HomePage = ({ navigation }) => {
-  useEffect(()=>{
-    // changeNavigationBarColor("#e6e7e8ff");
-  },[])
+  useEffect(() => {}, []);
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar  barStyle="dark-content" backgroundColor="#ffffff"/>
+      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+
       <View style={styles.root}>
         <Header />
 
@@ -114,19 +119,26 @@ const HomePage = ({ navigation }) => {
               </View>
             ))}
           </View>
-
-          {/* BOTTOM BUTTON */}
-          <TouchableOpacity onPress={() => navigation.navigate("TabsScreen", { Screen: "RoomTab" })} >
-             <LinearGradient
-    colors={["#84A9FF", "#A8E8C6"]}
-    start={{ x: 0, y: 0 }}
-    end={{ x: 1, y: 0 }}
-    style={styles.ctaButton}
-  >
-            <Text style={styles.ctaText}>Start Designing Your Space</Text>
-            </LinearGradient>
-          </TouchableOpacity>
         </ScrollView>
+
+        {/* FIXED BOTTOM BUTTON */}
+        <TouchableOpacity
+          style={styles.ctaWrapper}
+          onPress={() =>
+            navigation.navigate("TabsScreen", { Screen: "RoomTab" })
+          }
+        >
+          <LinearGradient
+            colors={["#84A9FF", "#A8E8C6"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.ctaButton}
+          >
+            <Text style={styles.ctaText}>
+              Start Designing Your Space
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -135,16 +147,15 @@ const HomePage = ({ navigation }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    // backgroundColor: "#4159a3ff",
   },
+
   root: {
     flex: 1,
-    // backgroundColor: "#e6e7e8ff",
   },
 
   scrollContent: {
     paddingHorizontal: 16,
-    paddingBottom: 30,
+    paddingBottom: 120, // extra space so content not hidden
   },
 
   // TITLE
@@ -216,7 +227,6 @@ const styles = StyleSheet.create({
   },
   featureIcon: {
     fontSize: 22,
-    justifyContent: "center"
   },
   featureTextWrap: {
     flex: 1,
@@ -233,22 +243,27 @@ const styles = StyleSheet.create({
     color: "#6C727F",
   },
 
-  // CTA BUTTON
+  // FIXED BUTTON
+  ctaWrapper: {
+    position: "absolute",
+    bottom: 20,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 20,
+  },
+
   ctaButton: {
-    marginTop: 22,
-    marginHorizontal: 20,
     paddingVertical: 14,
     borderRadius: 24,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#3A8DF5",
   },
- ctaText: {
-  fontSize: 16,     
-  fontWeight: "600",
-  color: "#FFFFFF",
-},
 
+  ctaText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#FFFFFF",
+  },
 });
 
 export default HomePage;
