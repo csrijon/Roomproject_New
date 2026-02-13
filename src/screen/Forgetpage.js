@@ -14,7 +14,7 @@ const Forgetpage = ({ navigation }) => {
   const otochecker = async ()=>{
     try {
       setLoading(true)
-      let response = await fetch("http://10.140.21.238:3000/otpsender",{
+      let response = await fetch("https://roomaibackend.onrender.com/otpsender",{
         method: "POST",
         headers:{
           "Content-Type":"application/json"

@@ -64,7 +64,7 @@ const LoginScreen = ({ navigation }) => {
 
   const loggedin = async () => {
     try {
-      const response = await fetch("http://10.140.21.238:3000/login", {
+      const response = await fetch("https://roomaibackend.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

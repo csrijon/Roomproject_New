@@ -30,7 +30,7 @@ const CheckyourEmail = ({ navigation, route }) => {
 
     const sendotpverification = async () => {
         try {
-            let response = await fetch("http://10.140.21.238:3000/otpchecker", {
+            let response = await fetch("https://roomaibackend.onrender.com/otpchecker", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
