@@ -9,6 +9,7 @@ import {
   Switch,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -18,6 +19,13 @@ import ThirdHeader from "../components/ThirdHeader.js";
 
 const HelpSupportPage = () => {
   const [emailToggle, setEmailToggle] = useState(false);
+
+  const handleLogout = () => {
+    Alert.alert("Logout", "Are you sure you want to logout?", [
+      { text: "Cancel", style: "cancel" },
+      { text: "Logout", onPress: () => console.log("Logged out") },
+    ]);
+  };
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -31,10 +39,8 @@ const HelpSupportPage = () => {
           contentContainerStyle={{ paddingBottom: 24 }}
           showsVerticalScrollIndicator={false}
         >
-          {/* HELP TITLE */}
           <Text style={styles.helpTitle}>Help & Support</Text>
 
-          {/* SEARCH BOX */}
           <View style={styles.searchCard}>
             <MaterialIcons
               name="search"
@@ -49,7 +55,6 @@ const HelpSupportPage = () => {
             />
           </View>
 
-          {/* TABS */}
           <View style={styles.tabRow}>
             <View style={styles.tabItemActive}>
               <MaterialIcons
@@ -92,10 +97,8 @@ const HelpSupportPage = () => {
             </View>
           </View>
 
-          {/* GET IN TOUCH */}
           <Text style={styles.sectionTitle}>Get in Touch</Text>
 
-          {/* Live Chat */}
           <TouchableOpacity style={styles.contactRow}>
             <View style={styles.contactLeft}>
               <MaterialCommunityIcons
@@ -112,7 +115,6 @@ const HelpSupportPage = () => {
             <Ionicons name="chevron-forward" size={20} color="#C3C7D0" />
           </TouchableOpacity>
 
-          {/* Email Support */}
           <View style={styles.contactRow}>
             <View style={styles.contactLeft}>
               <MaterialIcons name="email" size={22} color="#4B4F5C" />
@@ -128,7 +130,6 @@ const HelpSupportPage = () => {
             />
           </View>
 
-          {/* Call Us */}
           <View style={styles.contactRow}>
             <View style={styles.contactLeft}>
               <MaterialIcons name="call" size={22} color="#00C29B" />
@@ -140,7 +141,6 @@ const HelpSupportPage = () => {
             </View>
           </View>
 
-          {/* LOCATION CARD */}
           <View style={styles.card}>
             <View style={styles.mapThumbWrap}>
               <Image
@@ -158,7 +158,6 @@ const HelpSupportPage = () => {
             </View>
           </View>
 
-          {/* COMPANY CARD */}
           <View style={styles.card}>
             <View style={styles.bottomLogo}>
               <Image
@@ -174,6 +173,16 @@ const HelpSupportPage = () => {
               </View>
             </View>
           </View>
+
+          {/* LOGOUT SECTION */}
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={handleLogout}
+          >
+            <MaterialIcons name="logout" size={22} color="#FF4C4C" />
+            <Text style={styles.logoutText}>Logout</Text>
+          </TouchableOpacity>
+
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -183,16 +192,8 @@ const HelpSupportPage = () => {
 export default HelpSupportPage;
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-    backgroundColor: "#101820",
-  },
-
-  root: {
-    flex: 1,
-    backgroundColor: "#101820",
-  },
-
+  safe: { flex: 1, backgroundColor: "#101820" },
+  root: { flex: 1, backgroundColor: "#101820" },
   body: {
     flex: 1,
     backgroundColor: "#F4F5F7",
@@ -205,7 +206,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderColor: "#00C29B",
   },
-
   helpTitle: {
     fontSize: 20,
     fontWeight: "700",
@@ -213,13 +213,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 15,
   },
-
-  logo: {
-    width: 60,
-    height: 60,
-    resizeMode: "contain",
-  },
-
+  logo: { width: 60, height: 60, resizeMode: "contain" },
   searchCard: {
     flexDirection: "row",
     alignItems: "center",
@@ -234,81 +228,25 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     marginBottom: 25,
   },
-
-  searchInput: {
-    flex: 1,
-    fontSize: 14,
-    color: "#1A1D21",
-  },
-
-  tabRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 22,
-  },
-
-  tabItem: {
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-  },
-
-  tabItemActive: {
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-  },
-
-  iconstyle: {
-    padding: 10,
-    borderRadius: 30,
-    borderColor: "#00C29B",
-    borderWidth: 1,
-  },
-
-  tabText: {
-    fontSize: 11,
-    marginTop: 4,
-    color: "#9FA4B3",
-  },
-
-  tabTextActive: {
-    fontSize: 11,
-    marginTop: 4,
-    color: "#00C29B",
-    fontWeight: "600",
-  },
-
-  sectionTitle: {
-    fontSize: 17,
-    fontWeight: "500",
-    color: "#1A1D21",
-    marginBottom: 12,
-    marginTop: 40,
-  },
-
+  searchInput: { flex: 1, fontSize: 14, color: "#1A1D21" },
+  tabRow: { flexDirection: "row", justifyContent: "space-between", marginBottom: 22 },
+  tabItem: { alignItems: "center", justifyContent: "center", flex: 1 },
+  tabItemActive: { alignItems: "center", justifyContent: "center", flex: 1 },
+  iconstyle: { padding: 10, borderRadius: 30, borderColor: "#00C29B", borderWidth: 1 },
+  tabText: { fontSize: 11, marginTop: 4, color: "#9FA4B3" },
+  tabTextActive: { fontSize: 11, marginTop: 4, color: "#00C29B", fontWeight: "600" },
+  sectionTitle: { fontSize: 17, fontWeight: "500", color: "#1A1D21", marginBottom: 12, marginTop: 40 },
   contactRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "transparent",
     borderRadius: 16,
     paddingVertical: 12,
     paddingHorizontal: 14,
     marginBottom: 10,
   },
-
-  contactLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  contactTitle: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#1A1D21",
-  },
-
+  contactLeft: { flexDirection: "row", alignItems: "center" },
+  contactTitle: { fontSize: 14, fontWeight: "600", color: "#1A1D21" },
   card: {
     flexDirection: "row",
     alignItems: "center",
@@ -323,7 +261,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 1 },
   },
-
   mapThumbWrap: {
     width: 64,
     height: 48,
@@ -331,27 +268,26 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: "#D7DDE8",
   },
+  mapThumb: { width: "100%", height: "100%", resizeMode: "cover" },
+  cardTitle: { fontSize: 13, fontWeight: "600", color: "#1A1D21", marginBottom: 2 },
+  cardSub: { fontSize: 11, color: "#777C89" },
+  bottomLogo: { flexDirection: "row", alignItems: "center" },
 
-  mapThumb: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-  },
-
-  cardTitle: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#1A1D21",
-    marginBottom: 2,
-  },
-
-  cardSub: {
-    fontSize: 11,
-    color: "#777C89",
-  },
-
-  bottomLogo: {
+  logoutButton: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFF1F1",
+    paddingVertical: 14,
+    borderRadius: 16,
+    marginTop: 30,
+    marginBottom: 20,
+  },
+
+  logoutText: {
+    marginLeft: 8,
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#FF4C4C",
   },
 });

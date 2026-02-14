@@ -45,6 +45,7 @@ const TabsScreen = () => {
         height: 70,
         borderRadius: 15,
       },
+      tabBarHideOnKeyboard: true,
       tabBarItemStyle: {
         paddingVertical: 8
       }

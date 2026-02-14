@@ -31,7 +31,7 @@ const SetNewPassword = ({ navigation }) => {
             console.log("password not match")
         }
 
-        let response = await fetch("https://roomaibackend.onrender.com/updatepass",{
+        let response = await fetch("http://10.140.21.238:3000/updatepass",{
             method: "PATCH",
             headers: {
                 "Content-Type":"application/json"

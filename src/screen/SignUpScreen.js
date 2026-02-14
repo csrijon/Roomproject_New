@@ -48,7 +48,7 @@ const SignUpScreen = ({ navigation }) => {
       return
     }
     try {
-      const response = await fetch("https://roomaibackend.onrender.com/signup", {
+      const response = await fetch("http://10.140.21.238:3000/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

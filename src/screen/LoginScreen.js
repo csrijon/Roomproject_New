@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   View,
@@ -12,6 +12,7 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 // import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+// import { GoogleSignin } from "@react-native-google-signin/google-signin";
 // import { GOOGLE_CLIENT_ID } from '@env';
 
 
@@ -31,40 +32,45 @@ const LoginScreen = ({ navigation }) => {
     setlogpassword(text)
     console.log(text)
   }
-  // GoogleSignin.configure({
-  //      webClientId:GOOGLE_CLIENT_ID,
-  // })
-
+// useEffect(() => {
+//   console.log("CLIENT ID:", GOOGLE_CLIENT_ID);
+//   GoogleSignin.configure({
+//     webClientId: GOOGLE_CLIENT_ID,
+    
+//     offlineAccess: true,
+//   });
+// }, []);
   // const GoogleSign = async () => {
   //   try {
   //     await GoogleSignin.hasPlayServices();
-
   //     const userInfo = await GoogleSignin.signIn();
-  //     console.log("Google User Info:", userInfo);
-  //     console.log("Google User:", userInfo.user);
-  //     console.log("ID Token:", userInfo.idToken);
+  //     console.log(userInfo);
 
-  //     navigation.replace("TabsScreen");
-
-  //   } catch (error) {
-  //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-  //       console.log("User cancelled Google Sign-In");
+  //     const response = await fetch("http://10.140.21.238:3000/googlelogin", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({
+  //         token: userInfo.idToken
+  //       })
+  //     })
+  //     if (!response.ok) {
+  //       console.log("Google login failed")
+  //       return
   //     }
-  //     else if (error.code === statusCodes.IN_PROGRESS) {
-  //       console.log("Sign-in already in progress");
-  //     }
-  //     else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-  //       console.log("Play services not available");
-  //     }
-  //     else {
-  //       console.log("Google Sign-In error:", error);
-  //     }
+  //     const data = await response.json()
+  //     console.log(data)
+  //     navigation.replace("DrawerScreen")
   //   }
-  // };
+  //   catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const loggedin = async () => {
     try {
-      const response = await fetch("https://roomaibackend.onrender.com/login", {
+      const response = await fetch("http://10.140.21.238:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -110,7 +116,7 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       {/* Password Label */}
-      <Text style={styles.label}>Password</Text>
+      <Text style={styles.label}>password</Text>
 
       {/* Password Input With Error (Red Border) */}
       <View style={[styles.inputRow, styles.errorInput]}>
@@ -148,14 +154,14 @@ const LoginScreen = ({ navigation }) => {
 
       {/* Login with Apple */}
       <TouchableOpacity style={styles.socialBtn}>
-    <FontAwesome5 name="github" size={22} color="black" />
+        <FontAwesome5 name="apple" size={22} color="black" />
 
         <Text style={styles.socialText}>Login with Apple</Text>
       </TouchableOpacity>
 
       {/* Login with Google */}
       <TouchableOpacity
-        onPress={() => GoogleSign()}
+        // onPress={GoogleSign}
         style={styles.socialBtn}>
         {/* <FontAwesome name="google" size={22} color="#DB4437" /> */}
         <Image style={{ width: 24, height: 24 }} source={require("../images/gogolelogo.png")} />
